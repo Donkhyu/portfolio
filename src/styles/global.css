@@ -136,6 +136,34 @@ ul[role='list'] {
   border: 0;
 }
 
+/* Theme toggle (React island — styled globally since scoped styles don't reach it) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+.tt-icon {
+  display: inline-flex;
+}
+
 /* Skip link for keyboard users */
 .skip-link {
   position: absolute;

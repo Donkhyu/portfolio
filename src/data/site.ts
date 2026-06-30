@@ -29,7 +29,9 @@ export const site = {
   onTheRecord: 'Daniel Caesar — Best Part',
 
   email: 'deon@rooftop.my',
-  resumeUrl: '/resume/Deon-Hiu-Resume.pdf',
+  // Drop your PDF at public/resume/Deon-Hiu-Resume.pdf and set this to
+  // '/resume/Deon-Hiu-Resume.pdf'. Left empty hides the Résumé button.
+  resumeUrl: '',
 
   socials: [
     { label: 'GitHub', href: 'https://github.com/Donkhyu', handle: '@Donkhyu' },

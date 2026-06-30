@@ -8,13 +8,19 @@ import SkillsGrid from '../components/SkillsGrid.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ProjectList from '../components/ProjectList.astro';
+import ThemeToggle from '../components/ThemeToggle.tsx';
+import SeamDivider from '../components/SeamDivider.astro';
 ---
 
 <BaseLayout>
-  <Header slot="header" />
+  <Header slot="header">
+    <ThemeToggle slot="toggle" client:load />
+  </Header>
 
   <Hero />
   <AboutBlock />
+
+  <SeamDivider />
 
   <section class="section container" id="work" aria-labelledby="work-h">
     <SectionHeading themed="Set & Spike" plain="Work" id="work-h" />
@@ -25,7 +31,12 @@ import ProjectList from '../components/ProjectList.astro';
     <ProjectList />
   </section>
 
+  <SeamDivider />
+
   <SkillsGrid />
+
+  <SeamDivider />
+
   <ContactBlock />
 
   <Footer slot="footer" />

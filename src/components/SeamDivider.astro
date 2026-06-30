@@ -1,0 +1,60 @@
+---
+// A thin volleyball-seam flourish between sections. Draws itself in on
+// scroll via IntersectionObserver; renders fully drawn if reduced-motion.
+---
+
+<div class="seam container" aria-hidden="true">
+  <svg viewBox="0 0 1200 24" preserveAspectRatio="none" width="100%" height="22">
+    <path
+      class="seam-path"
+      pathLength="1"
+      d="M0 12 C 220 1, 360 23, 600 12 S 980 1, 1200 12"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    ></path>
+  </svg>
+</div>
+
+<style>
+  .seam {
+    color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    margin-block: var(--space-s);
+  }
+  .seam-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .seam.in .seam-path {
+    stroke-dashoffset: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .seam-path {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const seams = document.querySelectorAll('.seam');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    seams.forEach((s) => s.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.6 },
+    );
+    seams.forEach((s) => io.observe(s));
+  }
+</script>

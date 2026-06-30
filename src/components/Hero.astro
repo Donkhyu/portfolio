@@ -21,7 +21,7 @@ import NowBrewing from './NowBrewing.astro';
     <div class="hero-cta">
       <a class="btn btn-primary" href="#work">View my work</a>
       <a class="btn btn-ghost" href={`mailto:${site.email}`}>Say hello</a>
-      <a class="btn btn-link" href={site.resumeUrl}>Résumé ↓</a>
+      {site.resumeUrl && <a class="btn btn-link" href={site.resumeUrl}>Résumé ↓</a>}
     </div>
   </div>
 </section>
