@@ -1,0 +1,133 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+
+const statusCopy: Record<string, string> = {
+  shipped: 'Shipped',
+  brewing: 'Brewing',
+  idea: 'On the board',
+};
+---
+
+<BaseLayout title={data.title} description={data.summary}>
+  <Header slot="header" />
+
+  <article class="section container project-detail">
+    <a class="back" href="/#work">← Back to work</a>
+
+    <div class="detail-head">
+      <span class={`badge badge-${data.status}`}>{statusCopy[data.status]}</span>
+      <h1>{data.title}</h1>
+      <p class="lede">{data.summary}</p>
+
+      <dl class="meta">
+        {data.role && (<><dt>Role</dt><dd>{data.role}</dd></>)}
+        {data.tech.length > 0 && (<><dt>Stack</dt><dd>{data.tech.join(' · ')}</dd></>)}
+        {data.date && (<><dt>When</dt><dd>{data.date.getFullYear()}</dd></>)}
+      </dl>
+
+      {(data.repo || data.demo) && (
+        <div class="detail-links">
+          {data.repo && <a class="btn" href={data.repo} target="_blank" rel="noopener noreferrer">View code ↗</a>}
+          {data.demo && <a class="btn" href={data.demo} target="_blank" rel="noopener noreferrer">Live demo ↗</a>}
+        </div>
+      )}
+    </div>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .project-detail {
+    max-width: 50rem;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+  .back:hover { color: var(--accent); }
+  .detail-head {
+    margin: var(--space-m) 0 var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+  .badge {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    padding: 0.15em 0.6em;
+    border-radius: var(--radius-pill);
+    border: 1px solid currentColor;
+    color: var(--accent);
+  }
+  .badge-shipped { color: var(--c-sage); }
+  .badge-idea { color: var(--accent-2); }
+  .lede {
+    font-size: var(--fs-1);
+    color: var(--text);
+    line-height: var(--leading-snug);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2xs) var(--space-m);
+    margin: 0;
+  }
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .meta dd { margin: 0; color: var(--text); }
+  .detail-links {
+    display: flex;
+    gap: var(--space-s);
+    margin-top: var(--space-2xs);
+  }
+  .btn {
+    display: inline-flex;
+    padding: 0.6em 1.2em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--bg-raised);
+    text-decoration: none;
+    color: var(--text);
+    font-size: var(--fs--1);
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .prose :global(h2) {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-2xs);
+  }
+  .prose :global(p),
+  .prose :global(ul) {
+    margin-bottom: var(--space-s);
+  }
+</style>

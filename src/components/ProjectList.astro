@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import ComingSoonCard from './ComingSoonCard.astro';
+
+const all = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Keep the grid feeling full while content is sparse. Placeholders auto-shrink
+// to zero as real projects are added.
+const MIN_CARDS = 3;
+const placeholders = Math.max(0, MIN_CARDS - all.length);
+---
+
+<div class="project-grid">
+  {all.map((project) => <ProjectCard project={project} />)}
+  {Array.from({ length: placeholders }).map((_, i) => <ComingSoonCard index={i} />)}
+</div>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-m);
+  }
+</style>

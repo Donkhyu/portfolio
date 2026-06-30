@@ -1,0 +1,128 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { data, id } = project;
+
+const statusCopy: Record<string, string> = {
+  shipped: 'Shipped',
+  brewing: 'Brewing',
+  idea: 'On the board',
+};
+---
+
+<article class={`project-card status-${data.status}`}>
+  <a class="card-link" href={`/projects/${id}`} aria-label={`Read more about ${data.title}`}>
+    <div class="card-head">
+      <span class={`badge badge-${data.status}`}>{statusCopy[data.status]}</span>
+      {data.role && <span class="role">{data.role}</span>}
+    </div>
+    <h3 class="card-title">{data.title}</h3>
+    <p class="card-summary">{data.summary}</p>
+  </a>
+
+  {data.tech.length > 0 && (
+    <ul class="tech" role="list">
+      {data.tech.map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+
+  {(data.repo || data.demo) && (
+    <div class="card-links">
+      {data.repo && (
+        <a href={data.repo} target="_blank" rel="noopener noreferrer">Code ↗</a>
+      )}
+      {data.demo && (
+        <a href={data.demo} target="_blank" rel="noopener noreferrer">Live ↗</a>
+      )}
+    </div>
+  )}
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding: var(--space-m);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    background: var(--bg-raised);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition),
+      border-color var(--transition);
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-warm-lg);
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  }
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    padding: 0.15em 0.6em;
+    border-radius: var(--radius-pill);
+    border: 1px solid currentColor;
+  }
+  .badge-shipped { color: var(--sage, #7c8a6b); }
+  .badge-brewing { color: var(--accent); }
+  .badge-idea { color: var(--accent-2); }
+  .role {
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+  }
+  .card-title {
+    color: var(--heading);
+    margin-top: var(--space-3xs);
+  }
+  .card-summary {
+    color: var(--text);
+  }
+  .tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs);
+    margin: 0;
+    margin-top: auto;
+  }
+  .tech li {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    padding: 0.1em 0.5em;
+  }
+  .card-links {
+    display: flex;
+    gap: var(--space-m);
+  }
+  .card-links a {
+    font-size: var(--fs--1);
+    font-weight: 500;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-card:hover {
+      transform: none;
+    }
+  }
+</style>

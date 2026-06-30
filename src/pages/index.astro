@@ -7,6 +7,7 @@ import AboutBlock from '../components/AboutBlock.astro';
 import SkillsGrid from '../components/SkillsGrid.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import ProjectList from '../components/ProjectList.astro';
 ---
 
 <BaseLayout>
@@ -15,10 +16,13 @@ import SectionHeading from '../components/SectionHeading.astro';
   <Hero />
   <AboutBlock />
 
-  <!-- Work — ProjectList wired in Phase 4 -->
   <section class="section container" id="work" aria-labelledby="work-h">
     <SectionHeading themed="Set & Spike" plain="Work" id="work-h" />
-    <p>Projects coming soon.</p>
+    <p class="work-intro">
+      Every project is a rally — read the play, set it up, and spike. Here’s what
+      I’ve shipped and what’s currently brewing.
+    </p>
+    <ProjectList />
   </section>
 
   <SkillsGrid />
@@ -26,3 +30,12 @@ import SectionHeading from '../components/SectionHeading.astro';
 
   <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  .work-intro {
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin-top: calc(-1 * var(--space-l));
+    margin-bottom: var(--space-l);
+  }
+</style>
