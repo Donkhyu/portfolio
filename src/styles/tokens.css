@@ -5,38 +5,44 @@
    ============================================================ */
 
 :root {
-  /* === Brand neutrals: coffee + cream === */
-  --c-cream: #f4ece2; /* page bg (day) */
-  --c-cream-2: #eadfd1; /* raised surfaces */
-  --c-latte: #d8c3a5; /* borders, dividers */
-  --c-mocha: #6f4e37; /* primary brown / headings on light */
-  --c-espresso: #2a1d16; /* near-black text, dark bg base */
-  --c-bean: #1a120d; /* deepest dark bg */
+  /* === Warm neutral ramp — pared back, low saturation === */
+  --c-paper: #f6f1ea; /* page bg (day) */
+  --c-raised: #ece4d9; /* raised surfaces (day) */
+  --c-border: #ddd2c4; /* borders, dividers (day) */
+  --c-ink: #332c26; /* body text on light */
+  --c-ink-muted: #6b6259; /* muted text on light */
+  --c-head: #241e18; /* headings on light (near-neutral) */
 
-  /* === R&B late-night warm accents === */
-  --c-amber: #c8772e; /* primary accent (warm caramel/amber) */
-  --c-amber-soft: #e0a45e;
-  --c-plum: #6e3d54; /* secondary accent, soulful magenta-plum */
-  --c-plum-soft: #b06c8c;
-  --c-gold: #e8b255; /* highlight / steam glow */
-  --c-sage: #7c8a6b; /* tertiary, subtle volleyball-court green */
+  /* dark ramp (night) */
+  --c-base: #16110d; /* deepest dark bg */
+  --c-base-2: #211b16; /* raised surface (dark) */
+  --c-cream: #e9decf; /* body text on dark */
+  --c-cream-hi: #f2e7d7; /* headings on dark */
+
+  /* === Accents — muted, used sparingly === */
+  --c-accent-day: #925826; /* deep muted clay/amber (day) — AA on paper */
+  --c-accent-night: #ce9866; /* lifted muted amber (night) */
+  --c-plum-day: #7a5366; /* muted plum, secondary (day) */
+  --c-plum-night: #a6788e; /* muted plum (night) */
+  --c-sage: #6f7d5f; /* muted court green (shipped badge) */
+  --c-glow: #d9a866; /* warm glow for steam / highlights */
 
   /* === Semantic tokens — Day Roast (default) === */
-  --bg: var(--c-cream);
-  --bg-raised: var(--c-cream-2);
-  --text: var(--c-espresso);
-  --text-muted: color-mix(in srgb, var(--c-espresso) 62%, transparent);
-  --heading: var(--c-mocha);
-  --accent: var(--c-amber);
-  --accent-2: var(--c-plum);
-  --border: var(--c-latte);
-  --glow: var(--c-gold);
-  --on-accent: #fff7ee; /* text on accent-filled surfaces */
+  --bg: var(--c-paper);
+  --bg-raised: var(--c-raised);
+  --text: var(--c-ink);
+  --text-muted: var(--c-ink-muted);
+  --heading: var(--c-head);
+  --accent: var(--c-accent-day);
+  --accent-2: var(--c-plum-day);
+  --border: var(--c-border);
+  --glow: var(--c-glow);
+  --on-accent: #fbf6ee; /* text on accent-filled surfaces */
 
   /* === Type === */
-  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
-  --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-display: 'Atkinson Hyperlegible Next Variable', system-ui, -apple-system, sans-serif;
+  --font-body: 'Atkinson Hyperlegible Next Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
 
   /* fluid type scale (minor-third-ish, viewport-responsive) */
   --fs--1: clamp(0.83rem, 0.8rem + 0.2vw, 0.95rem);
@@ -70,41 +76,41 @@
   --radius-m: 12px;
   --radius-l: 20px;
   --radius-pill: 999px;
-  --shadow-warm: 0 8px 30px -12px rgba(42, 29, 22, 0.35);
-  --shadow-warm-lg: 0 18px 48px -18px rgba(42, 29, 22, 0.45);
+  --shadow-warm: 0 8px 28px -14px rgba(42, 29, 22, 0.22);
+  --shadow-warm-lg: 0 18px 44px -20px rgba(42, 29, 22, 0.3);
   --transition: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* === Late Night (R&B) mode === */
 :root[data-theme='night'] {
-  --bg: var(--c-bean);
-  --bg-raised: var(--c-espresso);
-  --text: #efe3d4;
-  --text-muted: color-mix(in srgb, #efe3d4 60%, transparent);
-  --heading: var(--c-gold);
-  --accent: var(--c-amber-soft);
-  --accent-2: var(--c-plum-soft);
-  --border: color-mix(in srgb, #efe3d4 14%, transparent);
-  --glow: var(--c-gold);
-  --on-accent: #1a120d;
-  --shadow-warm: 0 8px 30px -12px rgba(0, 0, 0, 0.55);
-  --shadow-warm-lg: 0 18px 48px -18px rgba(0, 0, 0, 0.65);
+  --bg: var(--c-base);
+  --bg-raised: var(--c-base-2);
+  --text: var(--c-cream);
+  --text-muted: color-mix(in srgb, var(--c-cream) 60%, transparent);
+  --heading: var(--c-cream-hi);
+  --accent: var(--c-accent-night);
+  --accent-2: var(--c-plum-night);
+  --border: color-mix(in srgb, var(--c-cream) 14%, transparent);
+  --glow: var(--c-glow);
+  --on-accent: #16110d;
+  --shadow-warm: 0 8px 30px -14px rgba(0, 0, 0, 0.5);
+  --shadow-warm-lg: 0 18px 46px -20px rgba(0, 0, 0, 0.6);
 }
 
 /* Respect OS preference when the user hasn't explicitly chosen Day mode. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='day']) {
-    --bg: var(--c-bean);
-    --bg-raised: var(--c-espresso);
-    --text: #efe3d4;
-    --text-muted: color-mix(in srgb, #efe3d4 60%, transparent);
-    --heading: var(--c-gold);
-    --accent: var(--c-amber-soft);
-    --accent-2: var(--c-plum-soft);
-    --border: color-mix(in srgb, #efe3d4 14%, transparent);
-    --glow: var(--c-gold);
-    --on-accent: #1a120d;
-    --shadow-warm: 0 8px 30px -12px rgba(0, 0, 0, 0.55);
-    --shadow-warm-lg: 0 18px 48px -18px rgba(0, 0, 0, 0.65);
+    --bg: var(--c-base);
+    --bg-raised: var(--c-base-2);
+    --text: var(--c-cream);
+    --text-muted: color-mix(in srgb, var(--c-cream) 60%, transparent);
+    --heading: var(--c-cream-hi);
+    --accent: var(--c-accent-night);
+    --accent-2: var(--c-plum-night);
+    --border: color-mix(in srgb, var(--c-cream) 14%, transparent);
+    --glow: var(--c-glow);
+    --on-accent: #16110d;
+    --shadow-warm: 0 8px 30px -14px rgba(0, 0, 0, 0.5);
+    --shadow-warm-lg: 0 18px 46px -20px rgba(0, 0, 0, 0.6);
   }
 }
