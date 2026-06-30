@@ -1,12 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import AboutBlock from '../components/AboutBlock.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 ---
 
 <BaseLayout>
-  <section class="section container">
-    <p class="eyebrow">Now brewing</p>
-    <h1>{site.name}</h1>
-    <p>{site.tagline}</p>
+  <Header slot="header" />
+
+  <Hero />
+  <AboutBlock />
+
+  <!-- Work — ProjectList wired in Phase 4 -->
+  <section class="section container" id="work" aria-labelledby="work-h">
+    <SectionHeading themed="Set & Spike" plain="Work" id="work-h" />
+    <p>Projects coming soon.</p>
   </section>
+
+  <SkillsGrid />
+  <ContactBlock />
+
+  <Footer slot="footer" />
 </BaseLayout>

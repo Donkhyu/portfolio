@@ -1,0 +1,24 @@
+---
+// Themed heading large + a plain functional subtitle small beneath,
+// so the personality never costs the recruiter clarity.
+interface Props {
+  themed: string; // e.g. "The Menu"
+  plain: string; // e.g. "Skills & tools"
+  id?: string;
+}
+const { themed, plain, id } = Astro.props;
+---
+
+<header class="section-heading" id={id}>
+  <p class="eyebrow">{plain}</p>
+  <h2>{themed}</h2>
+</header>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-xl);
+  }
+  .section-heading .eyebrow {
+    margin-bottom: var(--space-2xs);
+  }
+</style>

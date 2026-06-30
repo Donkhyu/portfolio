@@ -1,0 +1,120 @@
+---
+import { site } from '../data/site';
+import NowBrewing from './NowBrewing.astro';
+---
+
+<section class="hero section container" id="top">
+  <div class="hero-inner">
+    <NowBrewing />
+
+    <h1 class="hero-title">
+      Hi, I’m {site.name}.<br />
+      <span class="accentual">I build warm software.</span>
+    </h1>
+
+    <p class="hero-role">
+      {site.role} <span class="at">@</span> {site.company}
+    </p>
+
+    <p class="hero-tagline">{site.tagline}</p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#work">View my work</a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}`}>Say hello</a>
+      <a class="btn btn-link" href={site.resumeUrl}>Résumé ↓</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(3.5rem, 9vw, 7rem);
+  }
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+  }
+  .hero-title {
+    font-size: var(--fs-3);
+    margin-top: var(--space-2xs);
+  }
+  .accentual {
+    color: var(--accent);
+  }
+  .hero-role {
+    font-family: var(--font-mono);
+    font-size: var(--fs-0);
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .at {
+    color: var(--accent-2);
+  }
+  .hero-tagline {
+    font-size: var(--fs-1);
+    color: var(--text);
+    max-width: 40ch;
+    line-height: var(--leading-snug);
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-top: var(--space-2xs);
+  }
+
+  /* shared button styles, scoped here and reused via the .btn class names */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.7em 1.3em;
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-0);
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition),
+      background-color var(--transition),
+      color var(--transition);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-warm);
+  }
+  .btn-primary:hover {
+    box-shadow: var(--shadow-warm-lg);
+    color: var(--on-accent);
+  }
+  .btn-ghost {
+    border-color: var(--border);
+    color: var(--text);
+    background: var(--bg-raised);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-link {
+    color: var(--text-muted);
+    padding-inline: 0.5em;
+  }
+  .btn-link:hover {
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover {
+      transform: none;
+    }
+  }
+</style>

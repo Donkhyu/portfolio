@@ -1,0 +1,59 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-brand">{site.name}</p>
+    <p class="footer-note">
+      Brewed with Astro · served warm in {year}
+    </p>
+    <ul class="footer-links" role="list">
+      {site.socials.map((s) => (
+        <li>
+          <a href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}>{s.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-l);
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--heading);
+    margin: 0;
+  }
+  .footer-note {
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .footer-links {
+    display: flex;
+    gap: var(--space-m);
+    margin: 0;
+    margin-left: auto;
+  }
+  .footer-links a {
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--accent);
+  }
+</style>

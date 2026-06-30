@@ -1,0 +1,93 @@
+---
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section class="section container" id="contact" aria-labelledby="contact-h">
+  <SectionHeading themed="Let’s talk over coffee" plain="Contact" id="contact-h" />
+
+  <div class="contact-inner">
+    <p class="contact-lede">
+      Open to internships, grad roles, and collaborations. The fastest way to reach me is email —
+      I usually reply within a day (sometimes between rallies).
+    </p>
+
+    <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
+
+    <ul class="contact-links" role="list">
+      {site.socials.map((s) => (
+        <li>
+          <a href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+            <span class="cl-label">{s.label}</span>
+            {s.handle && <span class="cl-handle">{s.handle}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+  }
+  .contact-lede {
+    font-size: var(--fs-1);
+    color: var(--text);
+    max-width: 48ch;
+    line-height: var(--leading-snug);
+  }
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: var(--fs-2);
+    color: var(--heading);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.1em;
+    transition: color var(--transition);
+    word-break: break-word;
+  }
+  .contact-email:hover {
+    color: var(--accent);
+  }
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin: var(--space-2xs) 0 0;
+  }
+  .contact-links a {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: var(--space-2xs) var(--space-m);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    background: var(--bg-raised);
+    text-decoration: none;
+    transition:
+      border-color var(--transition),
+      transform var(--transition);
+  }
+  .contact-links a:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .cl-label {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .cl-handle {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-links a:hover {
+      transform: none;
+    }
+  }
+</style>

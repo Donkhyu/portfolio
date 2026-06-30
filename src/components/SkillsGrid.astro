@@ -1,0 +1,106 @@
+---
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+const levelLabels = ['', 'Exploring', 'Comfortable', 'Strong'];
+---
+
+<section class="section container" id="skills" aria-labelledby="skills-h">
+  <SectionHeading themed="The Menu" plain="Skills & tools" id="skills-h" />
+
+  <div class="menu">
+    {site.skills.map((group) => (
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <h3>{group.group}</h3>
+          <p class="menu-sub">{group.subtitle}</p>
+        </div>
+        <ul role="list">
+          {group.items.map((item) => (
+            <li>
+              <span class="dotline" aria-hidden="true"></span>
+              <span class="skill-name">{item.name}</span>
+              <span
+                class="dots"
+                role="img"
+                aria-label={`${levelLabels[item.level]} (${item.level} of 3)`}
+              >
+                {[1, 2, 3].map((n) => (
+                  <span class={`dot${n <= item.level ? ' on' : ''}`}></span>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <p class="menu-foot">Dots = how dialed-in I am · <span class="mono">●●● strong &nbsp; ●●○ comfortable &nbsp; ●○○ exploring</span></p>
+</section>
+
+<style>
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-xl);
+  }
+  .menu-group-head {
+    margin-bottom: var(--space-m);
+    padding-bottom: var(--space-2xs);
+    border-bottom: 2px solid var(--border);
+  }
+  .menu-group-head h3 {
+    color: var(--accent);
+  }
+  .menu-sub {
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+  }
+  .menu-group ul {
+    display: grid;
+    gap: var(--space-s);
+    margin: 0;
+  }
+  .menu-group li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+  /* a faint "menu" leader dotline between name and dots */
+  .skill-name {
+    order: 1;
+    color: var(--text);
+  }
+  .dotline {
+    order: 2;
+    height: 1px;
+    border-bottom: 1px dotted var(--border);
+    transform: translateY(0.4em);
+  }
+  .dots {
+    order: 3;
+    display: inline-flex;
+    gap: 4px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    background: transparent;
+  }
+  .dot.on {
+    background: var(--accent);
+  }
+  .menu-foot {
+    margin-top: var(--space-xl);
+    font-size: var(--fs--1);
+    color: var(--text-muted);
+  }
+  .mono {
+    font-family: var(--font-mono);
+  }
+</style>

@@ -43,6 +43,48 @@ export const site = {
     { label: 'Skills', href: '#skills' },
     { label: 'Contact', href: '#contact' },
   ] satisfies NavItem[],
+
+  // "The Roast" — short bio paragraphs. Edit freely.
+  about: [
+    'I’m a software engineer who likes building things that feel considered — backend systems and data work at Rooftop Energy by day, small experiments by night.',
+    'Off the keyboard you’ll find me chasing a clean pass on the volleyball court, dialing in a pour-over, or letting some R&B run in the background. Turns out the same things matter everywhere: rhythm, a good setup, and caring about the details.',
+  ],
+
+  // "The Menu" — skills as a coffee menu. levels: 1 = exploring, 2 = comfortable, 3 = strong.
+  skills: [
+    {
+      group: 'Espresso',
+      subtitle: 'Languages I reach for',
+      items: [
+        { name: 'Python', level: 3 },
+        { name: 'TypeScript / JavaScript', level: 3 },
+        { name: 'SQL', level: 2 },
+        { name: 'Java', level: 2 },
+      ],
+    },
+    {
+      group: 'Pour-over',
+      subtitle: 'Frameworks & tools',
+      items: [
+        { name: 'FastAPI', level: 2 },
+        { name: 'React', level: 2 },
+        { name: 'Node.js', level: 2 },
+        { name: 'PostgreSQL', level: 2 },
+        { name: 'Git', level: 3 },
+        { name: 'Docker', level: 1 },
+      ],
+    },
+    {
+      group: 'Cold brew',
+      subtitle: 'Currently steeping',
+      items: [
+        { name: 'Astro', level: 1 },
+        { name: 'AWS', level: 1 },
+        { name: 'Rust', level: 1 },
+      ],
+    },
+  ],
 } as const;
 
 export type Site = typeof site;
+export type SkillGroup = (typeof site.skills)[number];
