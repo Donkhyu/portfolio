@@ -1,0 +1,65 @@
+---
+// Self-hosted fonts (Fontsource — bundled woff2, no runtime external requests).
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.role}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og-image.png', Astro.site).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- No-flash theme init: set data-theme before first paint. -->
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          if (stored === 'day' || stored === 'night') {
+            document.documentElement.dataset.theme = stored;
+          }
+        } catch (e) {
+          /* localStorage unavailable — fall back to OS preference via CSS */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot name="header" />
+    <main id="main">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
